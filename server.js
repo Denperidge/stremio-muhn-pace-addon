@@ -1,8 +1,8 @@
 const {addonBuilder, serveHTTP} = require("stremio-addon-sdk");
 const { env } = require("process");
+const { REGEX_FILENAME } = require("./shared")
 
 const ID = "muhnpace"
-const REGEX_FILENAME = /] (?<season>[^0-9]*?)( -|) (?<episode>[0-9]+)/
 
 const LINKS = require("./links.json")//.map(link => {return {url: link.url}});
 

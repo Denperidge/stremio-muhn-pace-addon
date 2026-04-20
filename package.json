@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "stremio-muhn-pace.js",
-  "scripts": {},
+  "scripts": {
+    "subs": "pnpm node subs.js"
+  },
   "keywords": [],
   "author": "Denperidge",
   "packageManager": "pnpm@10.33.0",
