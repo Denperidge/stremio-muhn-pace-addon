@@ -1,10 +1,10 @@
 const {addonBuilder, serveHTTP} = require("stremio-addon-sdk");
 const { env } = require("process");
-const { REGEX_FILENAME } = require("./shared")
+const { REGEX_FILENAME, ID, createId } = require("./shared")
 
-const ID = "muhnpace"
 
-const LINKS = require("./links.json")//.map(link => {return {url: link.url}});
+const LINKS = require("./links.json");
+const SUBS = require("./subs.json");
 
 const META_VIDEOS = [];
 const STREAMS = {};
@@ -12,7 +12,6 @@ let seasonIndex = 1;
 let lastSeason = LINKS[0].name.match(REGEX_FILENAME).groups["season"];
 for (const link of LINKS) {
     const {name, url} = link;
-    console.log(`Parsing ${name}`)
     const {season, episode} = name.match(REGEX_FILENAME).groups;
 
     if (lastSeason != season) {
@@ -20,8 +19,7 @@ for (const link of LINKS) {
         seasonIndex++;
     }
 
-
-    const id = `${ID}+:${seasonIndex}:${episode}`
+    const id = createId(seasonIndex, episode)
     const title = `${season} - ${episode}`;
 
     META_VIDEOS.push({
@@ -51,7 +49,7 @@ const builder = new addonBuilder({
         name: "Muhn Pace",
         idPrefixes: [ ID ]
     }],
-    resources: ["catalog", "stream", "meta"],
+    resources: ["catalog", "stream", "meta", "subtitles"],
     types: ["series"],
     extra: [
         {
@@ -78,7 +76,6 @@ builder.defineMetaHandler(args => {
     console.log("meta")
     console.log(args)
     if (args.type == "series", args.id == ID) {
-        console.log("ee")
         return Promise.resolve({meta: {
             id: ID,
             type: "series",
@@ -99,6 +96,16 @@ builder.defineStreamHandler(args => {
     return Promise.resolve([])
 
 });
+
+builder.defineSubtitlesHandler(args => {
+    console.log("subs")
+    if (args.type == "series" && args.id.startsWith(ID)) {
+        console.log(args)
+        console.log(SUBS[args.id])
+        return Promise.resolve({subtitles: SUBS[args.id]});
+    }
+    return Promise.resolve([])
+})
 
 
 serveHTTP(builder.getInterface(), {port: env.PORT || 3636})
