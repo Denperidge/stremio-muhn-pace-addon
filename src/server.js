@@ -3,8 +3,8 @@ const { env } = require("process");
 const { REGEX_FILENAME, ID, createId } = require("./shared")
 
 
-const LINKS = require("./links.json");
-const SUBS = require("./subs.json");
+const LINKS = require("../data/links.json");
+const SUBS = require("../data/subs.json");
 
 const META_VIDEOS = [];
 const STREAMS = {};

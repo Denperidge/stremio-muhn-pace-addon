@@ -2,9 +2,10 @@
   "name": "stremio-muhn-pace-addon",
   "version": "1.0.0",
   "description": "",
-  "main": "stremio-muhn-pace.js",
+  "main": "src/server.js",
   "scripts": {
-    "subs": "pnpm node subs.js"
+    "start": "pnpm node src/server.js",
+    "subs": "pnpm node data/fetch-subs.js"
   },
   "keywords": [],
   "author": "Denperidge",

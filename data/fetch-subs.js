@@ -1,5 +1,5 @@
 import {writeFileSync} from "fs";
-import { REGEX_LANG, createId } from "./shared.js";
+import { REGEX_LANG, createId } from "../src/shared.js";
 
 const api = await (await fetch("https://api.github.com/repos/one-pace/one-pace-public-subtitles/contents/main/Release/Final%20Subs")).json();
 
@@ -71,4 +71,4 @@ const subs = api.filter(result => {
 });
 
 
-writeFileSync("subs.json", JSON.stringify(out), {encoding: "utf-8"})
+writeFileSync("data/subs.json", JSON.stringify(out), {encoding: "utf-8"})
