@@ -4,11 +4,11 @@ export const REGEX_LANG = new RegExp(BASE_REGEX + ".*?(?<lang>[^ \\[\\]]*)\\.ass
 export const ID = "muhnpace"
 
 export const RELEVANT_ARCS = [
-    "Enies Lobby",
-    "Post-Enies Lobby",
-    "Thriller Bark",
-    "Sabaody Archipelago",
-    "Amazon Lily",
+    "Enies Lobby",  // 1 for Stremio, 17 for One Pace, 0 for the list
+    "Post-Enies Lobby",  // 2
+    "Thriller Bark",  // 3
+    "Sabaody Archipelago",  // 4
+    "Amazon Lily",  // 5
     "Impel Down",  // 6
     "Marineford",  // 7
     "Post War",  // 8 Muhn pace: Post Marineford | One Pace: Post War new/Post-war old

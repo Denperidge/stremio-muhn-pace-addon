@@ -6,6 +6,12 @@
             "start": 1,
             "end": 9,
             "onepace_id_prefix": "EN_"
+        },
+        {
+            "season": 1,
+            "start": 23,
+            "end": 25,
+            "onepace_id_prefix": "EN_"
         }
     ]
 }
