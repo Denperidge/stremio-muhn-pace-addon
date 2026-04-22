@@ -1,5 +1,5 @@
 // Generate subs.json, containing relevant subtitle links
-import {writeFileSync, globSync} from "fs";
+import {writeFileSync, globSync, readFileSync} from "fs";
 import { spawn } from "child_process";
 import { REGEX_LANG, createId } from "../src/shared.js";
 
@@ -83,6 +83,45 @@ subFiles.filter(subtitlePath => {
     if (!Object.keys(out).includes(id)) {
         out[id] = []
     }
+
+    console.log(subtitlePath)
+    const titles = readFileSync(subtitlePath, {encoding: "utf-8"}).match(
+        /Dialogue.*?Title,.*/gm)
+        .map(fullLine => {
+            // TODO: cleaner
+            const found = Array.from(fullLine.matchAll(/(?<=}|[0-9],,).*?(?={|$)/g))
+                .filter(value => value[0].trim() != "")
+            console.log(found)
+            console.log(fullLine)
+            console.log(subtitlePath)
+            if (found.length != 1) {
+                console.log(found[0][0])
+                if (found.length >= 2 && found[0][0].startsWith("Title card")) {
+                    return found[0][0]
+                }
+                throw Error(`Incorrect amount of results for title parsing: ${found.length}`)
+            }
+            return found[0][0]
+        }).filter(value => {
+            value = value.toLowerCase()
+            if (value.startsWith("title card") || value.startsWith("editing:")) {
+                return false;
+            }
+            return true;
+        })
+
+
+
+    const title = titles.shift()
+    for (let extraTitle of titles) {
+        if (title != extraTitle) {
+            console.error(`${title} != ${extraTitle}`)
+            throw Error("Error when parsing " + subtitlePath)
+        }
+    }
+
+
+    //exit()
 
     console.log(subtitlePath.replace("data/cache/one-pace-public-subtitles", ""))
     out[id].push({
