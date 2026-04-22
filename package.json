@@ -5,7 +5,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "pnpm node src/server.js",
-    "subs": "pnpm node data/fetch-subs.js"
+    "data": "pnpm data:subs",
+    "data:subs": "pnpm node data/subs.json.js"
   },
   "keywords": [],
   "author": "Denperidge",

@@ -1,3 +1,4 @@
+// Generate subs.json, containing relevant subtitle links
 import {writeFileSync} from "fs";
 import { REGEX_LANG, createId } from "../src/shared.js";
 
