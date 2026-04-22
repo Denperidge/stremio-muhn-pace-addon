@@ -33,11 +33,11 @@ const relevantArcs = [
     "Thriller Bark",
     "Sabaody Archipelago",
     "Amazon Lily",
-    "Impel Down",
-    "Marineford",
-    "Post War",  // Muhn pace: Post Marineford | One Pace: Post War new/Post-war old
-    "Fishman Island",
-    "Punk Hazard",
+    "Impel Down",  // 6
+    "Marineford",  // 7
+    "Post War",  // 8 Muhn pace: Post Marineford | One Pace: Post War new/Post-war old
+    "Fishman Island",  // 9
+    "Punk Hazard",  // 10
     "Dressrosa",  // 11
     "Zou",  // 12
     "Whole Cake Island",  // 13
@@ -48,6 +48,26 @@ let lastSeason = relevantArcs[0];
 let seasonIndex = 1;
 const outSubs = {};
 const outMeta = {};
+
+
+const REGEX_FIRSTLINE = /Dialogue.*(,,|})(?<first>(?!.*?Your media player).+?)({|$)/m
+const AUTOMATIC_OVERRIDES = [
+    "[527-528] Impel Down 02 [720p].ass",
+    "[529-531] Impel Down 03 [720p].ass",
+    "[532-533] Impel Down 04 [720p].ass",
+    "[534-536] Impel Down 05 [720p].ass",
+    "[537-538] Impel Down 06 [720p].ass",
+    "[539-540] Impel Down 07 [720p].ass",
+    "[541-543] Impel Down 08 [720p].ass",
+    "[544-546] Impel Down 09 [720p].ass",
+    "[547-548] Impel Down 10 [720p].ass",
+    "[593-594] Post War 07 [1080p].ass",
+    "[595-597] Post War 08 [1080p].ass",
+].map(file => "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace]" + file);
+const MANUAL_OVERRIDES = {
+    "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace][879-880] Whole Cake Island 29 [720p].ass": "Zero Escape",
+
+};
 
 // Skip until Enies lobby
 subFiles.filter(subtitlePath => {
@@ -93,13 +113,12 @@ subFiles.filter(subtitlePath => {
         !subtitlePath.endsWith("Turkish.ass")) {
 
         let episodeTitle;
-        if (subtitlePath.includes("[One Pace][527-528] Impel Down 02")) {
-            episodeTitle = "Impel Down Episode 2"
-        } else if (subtitlePath.includes("Whole Cake Island 29")) {
-            episodeTitle = "Zero Escape"
-        } else if (subtitlePath.includes("[One Pace][529-531] Impel Down 03")) {
-            episodeTitle = "Impel Down Episode 3"
-        } else if (subtitlePath.includes("Impel Down") || subtitlePath.includes("Post War 07") || subtitlePath.includes("Post War 08") || subtitlePath.includes("Arabic") || subtitlePath.includes("Whole Cake Island 38") || subtitlePath.includes("Wano 23") || subtitlePath.includes("Wano 26 [1080p] Arabic") || subtitlePath.includes("Wano 28") || subtitlePath.includes("Wano 32") ||  subtitlePath.includes("Whole Cake Island 39") ||subtitlePath.includes("Fishman Island") || subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford") || subtitlePath.includes("Zou 01") || subtitlePath.includes("Whole Cake Island 23")) {
+        // Begin episode title fallbacks: episodes without 
+        if (Object.keys(MANUAL_OVERRIDES).includes(subtitlePath)) {
+            episodeTitle = MANUAL_OVERRIDES[subtitlePath]
+        } else if (AUTOMATIC_OVERRIDES.includes(subtitlePath)) {
+            episodeTitle = '*"' + readFileSync(subtitlePath, {encoding: "utf-8"}).match(REGEX_FIRSTLINE).groups.first + '"'
+        }  else if (subtitlePath.includes("Whole Cake Island 38") || subtitlePath.includes("Wano 23") || subtitlePath.includes("Wano 28") || subtitlePath.includes("Wano 32") ||  subtitlePath.includes("Whole Cake Island 39") ||subtitlePath.includes("Fishman Island") || subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford") || subtitlePath.includes("Zou 01") || subtitlePath.includes("Whole Cake Island 23")) {
             episodeTitle = "Im"
         } else {
             console.log(subtitlePath)
