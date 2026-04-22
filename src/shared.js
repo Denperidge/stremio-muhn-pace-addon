@@ -1,7 +1,9 @@
 const BASE_REGEX = "] (?<season>[^0-9]*?)( -|) (?<episode>[0-9]+)";
 export const REGEX_FILENAME = new RegExp(BASE_REGEX)
 export const REGEX_LANG = new RegExp(BASE_REGEX + ".*?(?<lang>[^ \\[\\]]*)\\.ass");
-export const ID = "muhnpace"
+export const ID = "muhnpace";
+
+export const RELEVANT_ARC_DO_NOT_DETECT = "DO_NOT_DETECT_";
 
 export const RELEVANT_ARCS = [
     "Enies Lobby",  // 1 for Stremio, 17 for One Pace, 0 for the list
@@ -12,13 +14,14 @@ export const RELEVANT_ARCS = [
     "Impel Down",  // 6, 22
     "Marineford",  // 7, 23
     "Post War",  // 8, 24 | Muhn pace: Post Marineford | One Pace: Post War new/Post-war old
-    // TODO: add Return to sabaody 
-    "Fishman Island",  // 9, 25
-    "Punk Hazard",  // 10
-    "Dressrosa",  // 11
-    "Zou",  // 12
-    "Whole Cake Island",  // 13
-    "Wano"  // 14
+    RELEVANT_ARC_DO_NOT_DETECT + "Return to sabaody",  // 9, 25 Return to sabaody, fully on one pace. Don't detect, but add for season index
+    "Fishman Island",  // 10, 26
+    "Punk Hazard",  // 11, 27
+    "Dressrosa",  // 12, 28
+    "Zou",  // 13, 29
+    "Whole Cake Island",  // 14, 30
+    RELEVANT_ARC_DO_NOT_DETECT + "Reverie",  // 15, 31 Reverie, fully on one pace. Don't detect, but add for season index
+    "Wano"  // 16, 32
 ]
 
 

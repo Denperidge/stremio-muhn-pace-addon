@@ -25,6 +25,30 @@
             "start": 1,
             "end": 6,
             "onepace_id_prefix": "PW_"
+        },
+        {
+            "season": 9,
+            "start": 1,
+            "end": 3,
+            "onepace_id_prefix": "RTS_"
+        },
+        {
+            "season": 15,
+            "start": 1,
+            "end": 3,
+            "onepace_id_prefix": "REV_"
+        },
+        {
+            "season": 16,
+            "start": 1,
+            "end": 4,
+            "onepace_id_prefix": "WA_"
+        },
+        {
+            "season": 16,
+            "start": 31,
+            "end": 59,
+            "onepace_id_prefix": "WA_"
         }
     ]
 }

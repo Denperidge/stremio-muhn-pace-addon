@@ -1,6 +1,6 @@
 const {addonBuilder, serveHTTP} = require("stremio-addon-sdk");
 const { env } = require("process");
-const { REGEX_FILENAME, ID, createId, RELEVANT_ARCS } = require("./shared")
+const { REGEX_FILENAME, ID, createId, RELEVANT_ARCS, RELEVANT_ARC_DO_NOT_DETECT } = require("./shared")
 
 
 const LINKS = require("../data/links.json");
@@ -22,7 +22,7 @@ for (const goTo of GO_TO_ONEPACE) {
         if (Object.keys(META).includes(muhnpaceId)) {
             title = META[muhnpaceId].title
         } else {
-            title = `${RELEVANT_ARCS[seasonIndex-1]} ${i}`;
+            title = `${RELEVANT_ARCS[seasonIndex-1].replace(RELEVANT_ARC_DO_NOT_DETECT, "")} ${i}`;
         }
         title = "[One Pace Addon] " + title
         META_VIDEOS.push({
