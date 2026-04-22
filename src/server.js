@@ -5,6 +5,7 @@ const { REGEX_FILENAME, ID, createId } = require("./shared")
 
 const LINKS = require("../data/links.json");
 const SUBS = require("../data/subs.json");
+const META = require("../data/meta.json");
 
 const META_VIDEOS = [];
 const STREAMS = {};
@@ -14,13 +15,18 @@ for (const link of LINKS) {
     const {name, url} = link;
     const {season, episode} = name.match(REGEX_FILENAME).groups;
 
+    console.log("---")
+    console.log(link)
+    console.log(lastSeason)
+    console.log(season)
+
     if (lastSeason != season) {
         lastSeason = season;
         seasonIndex++;
     }
 
     const id = createId(seasonIndex, episode)
-    const title = `${season} - ${episode}`;
+    const title = (seasonIndex == 14 && parseInt(episode) >= 46) ? `Wano ${episode}`: META[id].title;
 
     META_VIDEOS.push({
         id: id,

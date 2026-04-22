@@ -38,10 +38,10 @@ const relevantArcs = [
     "Post War",  // Muhn pace: Post Marineford | One Pace: Post War new/Post-war old
     "Fishman Island",
     "Punk Hazard",
-    "Dressrosa",
-    "Zou",
-    "Whole Cake Island",
-    "Wano"
+    "Dressrosa",  // 11
+    "Zou",  // 12
+    "Whole Cake Island",  // 13
+    "Wano"  // 14
 ]
 
 let lastSeason = relevantArcs[0];
