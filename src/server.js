@@ -16,9 +16,15 @@ for (const goTo of GO_TO_ONEPACE) {
     
     for (let i=goTo.start; i<= goTo.end; i++) {
         const onepaceId = goTo.onepace_id_prefix + i;
-        const muhnpaceId = ID + onepaceId;
+        const muhnpaceId = createId(seasonIndex, i.toString());
 
-        const title = `[One Pace Addon] ${RELEVANT_ARCS[seasonIndex-1]} ${i}`;
+        let title;
+        if (Object.keys(META).includes(muhnpaceId)) {
+            title = META[muhnpaceId].title
+        } else {
+            title = `${RELEVANT_ARCS[seasonIndex-1]} ${i}`;
+        }
+        title = "[One Pace Addon] " + title
         META_VIDEOS.push({
             id: muhnpaceId,
             title: title,
