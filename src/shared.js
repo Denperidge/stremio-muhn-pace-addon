@@ -5,5 +5,5 @@ export const ID = "muhnpace"
 
 
 export function createId(seasonIndex, episode){
-    return `${ID}:${seasonIndex}:${episode}`;
+    return `${ID}:${seasonIndex}:${episode.padStart(2, "0")}`;
 }

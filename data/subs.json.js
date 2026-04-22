@@ -35,7 +35,7 @@ const relevantArcs = [
     "Amazon Lily",
     "Impel Down",
     "Marineford",
-    "Post Marineford",
+    "Post War",  // Muhn pace: Post Marineford | One Pace: Post War new/Post-war old
     "Fishman Island",
     "Punk Hazard",
     "Dressrosa",
@@ -99,7 +99,7 @@ subFiles.filter(subtitlePath => {
             episodeTitle = "Zero Escape"
         } else if (subtitlePath.includes("[One Pace][529-531] Impel Down 03")) {
             episodeTitle = "Impel Down Episode 3"
-        } else if (subtitlePath.includes("Impel Down") || subtitlePath.includes("Arabic") || subtitlePath.includes("Whole Cake Island 38") || subtitlePath.includes("Wano 23") || subtitlePath.includes("Wano 26 [1080p] Arabic") || subtitlePath.includes("Wano 28") || subtitlePath.includes("Wano 32") ||  subtitlePath.includes("Whole Cake Island 39") ||subtitlePath.includes("Fishman Island") || subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford") || subtitlePath.includes("Zou 01") || subtitlePath.includes("Whole Cake Island 23")) {
+        } else if (subtitlePath.includes("Impel Down") || subtitlePath.includes("Post War 07") || subtitlePath.includes("Post War 08") || subtitlePath.includes("Arabic") || subtitlePath.includes("Whole Cake Island 38") || subtitlePath.includes("Wano 23") || subtitlePath.includes("Wano 26 [1080p] Arabic") || subtitlePath.includes("Wano 28") || subtitlePath.includes("Wano 32") ||  subtitlePath.includes("Whole Cake Island 39") ||subtitlePath.includes("Fishman Island") || subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford") || subtitlePath.includes("Zou 01") || subtitlePath.includes("Whole Cake Island 23")) {
             episodeTitle = "Im"
         } else {
             console.log(subtitlePath)
