@@ -105,7 +105,9 @@ builder.defineCatalogHandler(args => {
             id: ID,
             type: "series",
             name: "muhn pace",
-            poster: "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg"
+            logo: "https://image.tmdb.org/t/p/original/dwG2LhXnVvwQwrvdECLhtucGvW0.png",
+            poster: "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg",
+            background: "https://image.tmdb.org/t/p/original/gZDbZvGxG7EWbN0EsVaIaB3LQzh.jpg"
         }]});
     }    
 });
