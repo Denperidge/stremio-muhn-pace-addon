@@ -61,6 +61,7 @@ const AUTOMATIC_OVERRIDES = [
     "[541-543] Impel Down 08 [720p].ass",
     "[544-546] Impel Down 09 [720p].ass",
     "[547-548] Impel Down 10 [720p].ass",
+    "[572-573] Marineford 13 [720p].ass",
     "[593-594] Post War 07 [1080p].ass",
     "[595-597] Post War 08 [1080p].ass",
     "[865-866] Whole Cake Island 22 [720p].ass",
@@ -78,7 +79,19 @@ const AUTOMATIC_OVERRIDES = [
     "[647-649] Fishman Island 22 [720p].ass",
     "[650-651] Fishman Island 23 [720p].ass",
     "[652-653] Fishman Island 24 [720p].ass",
-    ""
+    "[654-655] Punk Hazard 01 [720p].ass",
+    "[656-658] Punk Hazard 02 [720p].ass",
+    "[659-660] Punk Hazard 03 [720p].ass",
+    "[661-662] Punk Hazard 04 [720p].ass",
+    "[663-664] Punk Hazard 05 [720p].ass",
+    "[665-666] Punk Hazard 06 [720p].ass",
+    "[667-668] Punk Hazard 07 [720p].ass",
+    "[669-670] Punk Hazard 08 [720p].ass",
+    "[671-672] Punk Hazard 09 [720p].ass",
+    "[728-729] Dressrosa 15 [720p].ass",
+    "[730-731] Dressrosa 16 [720p].ass",
+    "[732-733] Dressrosa 17 [720p].ass",
+    "[734-735] Dressrosa 18 [720p].ass",
 ].map(file => "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace]" + file);
 const MANUAL_OVERRIDES = {
     "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace][879-880] Whole Cake Island 29 [720p].ass": "Zero Escape",
@@ -137,8 +150,6 @@ subFiles.filter(subtitlePath => {
             episodeTitle = MANUAL_OVERRIDES[subtitlePath]
         } else if (AUTOMATIC_OVERRIDES.includes(subtitlePath)) {
             episodeTitle = '*"' + readFileSync(subtitlePath, {encoding: "utf-8"}).match(REGEX_FIRSTLINE).groups.first + '"'
-        }  else if (subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford")) {
-            episodeTitle = "Im"
         } else {
             console.log(subtitlePath)
             const subContent = readFileSync(subtitlePath, {encoding: "utf-8"});
@@ -163,9 +174,8 @@ subFiles.filter(subtitlePath => {
                 })
 
             episodeTitle = titles.shift()
-            console.log(titles)
-            // If there are 2 titles in a Fishman Island episode, take the first title
-            if (subtitlePath.includes("Fishman Island") && titles.length == 1) {
+            // If there are 2 titles in a Fishman Island episode or a specific Marineford episode, take the first title
+            if (titles.length == 1 && (subtitlePath.includes("Fishman Island") || subtitlePath.includes("Marineford 15"))) {
                 console.log("Remove from titles!")
                 titles.shift();
             }
