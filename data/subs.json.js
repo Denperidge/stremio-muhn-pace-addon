@@ -84,40 +84,51 @@ subFiles.filter(subtitlePath => {
         out[id] = []
     }
 
-    console.log(subtitlePath)
-    const titles = readFileSync(subtitlePath, {encoding: "utf-8"}).match(
-        /Dialogue.*?Title,.*/gm)
-        .map(fullLine => {
-            // TODO: cleaner
-            const found = Array.from(fullLine.matchAll(/(?<=}|[0-9],,).*?(?={|$)/g))
-                .filter(value => value[0].trim() != "")
-            console.log(found)
-            console.log(fullLine)
-            console.log(subtitlePath)
-            if (found.length != 1) {
-                console.log(found[0][0])
-                if (found.length >= 2 && found[0][0].startsWith("Title card")) {
-                    return found[0][0]
+    let episodeTitle;
+    if (subtitlePath.includes("[One Pace][527-528] Impel Down 02")) {
+        episodeTitle = "Impel Down Episode 2"
+    } else if (subtitlePath.includes("Whole Cake Island 29")) {
+        episodeTitle = "Zero Escape"
+    } else if (subtitlePath.includes("[One Pace][529-531] Impel Down 03")) {
+        episodeTitle = "Impel Down Episode 3"
+    } else if (subtitlePath.includes("Impel Down") || subtitlePath.includes("Arabic") || subtitlePath.includes("Whole Cake Island 38") || subtitlePath.includes("Wano 23") || subtitlePath.includes("Wano 26 [1080p] Arabic") || subtitlePath.includes("Wano 28") || subtitlePath.includes("Wano 32") ||  subtitlePath.includes("Whole Cake Island 39") ||subtitlePath.includes("Fishman Island") || subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford") || subtitlePath.includes("Zou 01") || subtitlePath.includes("Whole Cake Island 23")) {
+        episodeTitle = "Im"
+    } else {
+        console.log(subtitlePath)
+        const titles = readFileSync(subtitlePath, {encoding: "utf-8"}).match(
+            /Dialogue.*?Title(,|-).*/gm)
+            .map(fullLine => {
+                // TODO: cleaner
+                const found = Array.from(fullLine.matchAll(/(?<=}|[0-9],,).*?(?={|$)/g))
+                    .filter(value => value[0].trim() != "")
+                console.log(found)
+                console.log(fullLine)
+                console.log(subtitlePath)
+                if (found.length != 1) {
+                    console.log(found[0][0])
+                    if (found.length >= 2 && found[0][0].startsWith("Title card")) {
+                        return found[0][0]
+                    }
+                    throw Error(`Incorrect amount of results for title parsing: ${found.length}`)
                 }
-                throw Error(`Incorrect amount of results for title parsing: ${found.length}`)
+                return found[0][0]
+            }).filter(value => {
+                value = value.toLowerCase()
+                if (value.startsWith("title card") || value.startsWith("editing:") || value == "impel down") {
+                    return false;
+                }
+                return true;
+            })
+
+        episodeTitle = titles.shift()
+        for (let extraTitle of titles) {
+            if (episodeTitle != extraTitle) {
+                // [One Pace][527-528] Impel Down 02
+                console.error(`'${episodeTitle}' != '${extraTitle}'`)
+                throw Error("Error when parsing " + subtitlePath)
             }
-            return found[0][0]
-        }).filter(value => {
-            value = value.toLowerCase()
-            if (value.startsWith("title card") || value.startsWith("editing:")) {
-                return false;
-            }
-            return true;
-        })
-
-
-
-    const title = titles.shift()
-    for (let extraTitle of titles) {
-        if (title != extraTitle) {
-            console.error(`${title} != ${extraTitle}`)
-            throw Error("Error when parsing " + subtitlePath)
         }
+
     }
 
 
@@ -125,6 +136,7 @@ subFiles.filter(subtitlePath => {
 
     console.log(subtitlePath.replace("data/cache/one-pace-public-subtitles", ""))
     out[id].push({
+        name: episodeTitle,
         id: id + ":" + langCode,
         lang: langCode,
         url: encodeURI("https://raw.githubusercontent.com/one-pace/one-pace-public-subtitles/main" + subtitlePath.replace("data/cache/one-pace-public-subtitles", ""))
