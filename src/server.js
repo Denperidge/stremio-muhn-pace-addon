@@ -15,7 +15,7 @@ for (const goTo of GO_TO_ONEPACE) {
     const seasonIndex = goTo.season;
     
     for (let i=goTo.start; i<= goTo.end; i++) {
-        const onepaceId = goTo.onepace_id_prefix + i;
+        const onepaceId = goTo.onepace_id || goTo.onepace_id_prefix + i;
         const muhnpaceId = createId(seasonIndex, i.toString());
 
         let title;

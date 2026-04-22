@@ -12,6 +12,19 @@
             "start": 23,
             "end": 25,
             "onepace_id_prefix": "EN_"
+        },
+        {
+            "comment": "cover story",
+            "season": 6,
+            "start": 11,
+            "end": 11,
+            "onepace_id": "COVER_SHSS_1"
+        },
+        {
+            "season": 8,
+            "start": 1,
+            "end": 6,
+            "onepace_id_prefix": "PW_"
         }
     ]
 }

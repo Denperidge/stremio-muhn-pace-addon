@@ -19,6 +19,13 @@
                     "onepace_id_prefix": {
                         "type":"string",
                         "$comment": "See https://github.com/fedew04/OnePaceStremio/blob/main/meta/series/pp_onepace.json#L23"
+                    },
+                    "onepace_id": {
+                        "type":"string",
+                        "$comment": "Override for onepcae_id_prefix"
+                    },
+                    "comment": {
+                        "type": "string"
                     }
                 }
             }
