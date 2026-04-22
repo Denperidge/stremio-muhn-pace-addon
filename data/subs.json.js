@@ -1,7 +1,7 @@
 // Generate subs.json, containing relevant subtitle links
 import {writeFileSync, globSync, readFileSync} from "fs";
 import { spawn } from "child_process";
-import { REGEX_LANG, createId } from "../src/shared.js";
+import { REGEX_LANG, createId, RELEVANT_ARCS } from "../src/shared.js";
 
 const SUBTITLE_CACHE = "data/cache/one-pace-public-subtitles";
 
@@ -27,24 +27,7 @@ await runShell(`git pull`, {cwd: SUBTITLE_CACHE})
 
 const subFiles = globSync(SUBTITLE_CACHE + "/main/Release/Final Subs/*");
 
-const relevantArcs = [
-    "Enies Lobby",
-    "Post-Enies Lobby",
-    "Thriller Bark",
-    "Sabaody Archipelago",
-    "Amazon Lily",
-    "Impel Down",  // 6
-    "Marineford",  // 7
-    "Post War",  // 8 Muhn pace: Post Marineford | One Pace: Post War new/Post-war old
-    "Fishman Island",  // 9
-    "Punk Hazard",  // 10
-    "Dressrosa",  // 11
-    "Zou",  // 12
-    "Whole Cake Island",  // 13
-    "Wano"  // 14
-]
-
-let lastSeason = relevantArcs[0];
+let lastSeason = RELEVANT_ARCS[0];
 let seasonIndex = 1;
 const outSubs = {};
 const outMeta = {};
@@ -103,7 +86,7 @@ const MANUAL_OVERRIDES = {
 
 // Skip until Enies lobby
 subFiles.filter(subtitlePath => {
-    for (let arc of relevantArcs) {
+    for (let arc of RELEVANT_ARCS) {
         // If relevant arc AND not a duplicate subtitle
         if (subtitlePath.toLowerCase().includes(arc.toLowerCase()) && 
             !subtitlePath.includes("[945]") &&

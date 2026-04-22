@@ -1,14 +1,40 @@
 const {addonBuilder, serveHTTP} = require("stremio-addon-sdk");
 const { env } = require("process");
-const { REGEX_FILENAME, ID, createId } = require("./shared")
+const { REGEX_FILENAME, ID, createId, RELEVANT_ARCS } = require("./shared")
 
 
 const LINKS = require("../data/links.json");
 const SUBS = require("../data/subs.json");
 const META = require("../data/meta.json");
+const GO_TO_ONEPACE = require("../data/onepace.json").go_to;
 
 const META_VIDEOS = [];
 const STREAMS = {};
+
+for (const goTo of GO_TO_ONEPACE) {
+    const seasonIndex = goTo.season;
+    
+    for (let i=goTo.start; i<= goTo.end; i++) {
+        const onepaceId = goTo.onepace_id_prefix + i;
+        const muhnpaceId = ID + onepaceId;
+
+        const title = `[One Pace Addon] ${RELEVANT_ARCS[seasonIndex-1]} ${i}`;
+        META_VIDEOS.push({
+            id: muhnpaceId,
+            title: title,
+            released: "2010-12-06T05:00:00.000Z",
+            season: seasonIndex,
+            episode: i,
+        });
+        STREAMS[muhnpaceId] = { streams: [{
+            name: "fedew04 One Pace Addon",
+            title: title,
+            type: "series",
+            externalUrl: `stremio:///detail/series/pp_onepace/${onepaceId}?autoplay=true`
+        }]};
+    }
+}
+
 let seasonIndex = 1;
 let lastSeason = LINKS[0].name.match(REGEX_FILENAME).groups["season"];
 for (const link of LINKS) {
