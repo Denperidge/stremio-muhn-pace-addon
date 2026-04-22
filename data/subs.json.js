@@ -63,10 +63,29 @@ const AUTOMATIC_OVERRIDES = [
     "[547-548] Impel Down 10 [720p].ass",
     "[593-594] Post War 07 [1080p].ass",
     "[595-597] Post War 08 [1080p].ass",
+    "[865-866] Whole Cake Island 22 [720p].ass",
+    "[867-868] Whole Cake Island 23 [720p].ass",
+    "[898-900] Whole Cake Island 38 [720p].ass",
+    "[901-902] Whole Cake Island 39 [720p].ass",
+    "[943-944] Wano 23 [1080p].ass",
+    "[951-952] Wano 28 [1080p].ass",
+    "[957] Wano 32 [1080p].ass",
+    "[801-803] Zou 01 [720p].ass",
+    "[638-639] Fishman Island 18 [720p].ass",
+    "[640-641] Fishman Island 19 [720p].ass",
+    "[642-645] Fishman Island 20 [720p].ass",
+    "[643-646] Fishman Island 21 [720p].ass",
+    "[647-649] Fishman Island 22 [720p].ass",
+    "[650-651] Fishman Island 23 [720p].ass",
+    "[652-653] Fishman Island 24 [720p].ass",
+    ""
 ].map(file => "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace]" + file);
 const MANUAL_OVERRIDES = {
     "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace][879-880] Whole Cake Island 29 [720p].ass": "Zero Escape",
-
+    /*"data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace][614-615] Fishman Island 07 [720p].ass": "The Shirahoshi Kidnapping Incident and The Curse of the Mato Mato!",
+    "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace][616-618] Fishman Island 08 [720p].ass": "The Beginning of the Vengeful Plan! Zoro vs. Hody!",
+    "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace][619-620] Fishman Island 09 [720p].ass": "At the Sea Forest! Arlong and Hody",
+    "data/cache/one-pace-public-subtitles/main/Release/Final Subs/[One Pace][621-622] Fishman Island 10 [720p].ass": "Otohime, Fisher Tiger, and the Sun Pirates! The Fateful Encounter!",*/
 };
 
 // Skip until Enies lobby
@@ -118,21 +137,17 @@ subFiles.filter(subtitlePath => {
             episodeTitle = MANUAL_OVERRIDES[subtitlePath]
         } else if (AUTOMATIC_OVERRIDES.includes(subtitlePath)) {
             episodeTitle = '*"' + readFileSync(subtitlePath, {encoding: "utf-8"}).match(REGEX_FIRSTLINE).groups.first + '"'
-        }  else if (subtitlePath.includes("Whole Cake Island 38") || subtitlePath.includes("Wano 23") || subtitlePath.includes("Wano 28") || subtitlePath.includes("Wano 32") ||  subtitlePath.includes("Whole Cake Island 39") ||subtitlePath.includes("Fishman Island") || subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford") || subtitlePath.includes("Zou 01") || subtitlePath.includes("Whole Cake Island 23")) {
+        }  else if (subtitlePath.includes("Dressrosa 1") || subtitlePath.includes("Punk Hazard") || subtitlePath.includes("Marineford")) {
             episodeTitle = "Im"
         } else {
             console.log(subtitlePath)
-            const titles = readFileSync(subtitlePath, {encoding: "utf-8"}).match(
-                /Dialogue.*?Title(,|-).*/gm)
+            const subContent = readFileSync(subtitlePath, {encoding: "utf-8"});
+            const titles = (subContent.match(/Dialogue.*?Title(,|-).*/gm) || subContent.match(/Dialogue.*?title(,|-)[^ ]*?,.*/gm))
                 .map(fullLine => {
                     // TODO: cleaner
                     const found = Array.from(fullLine.matchAll(/(?<=}|[0-9],,).*?(?={|$)/g))
                         .filter(value => value[0].trim() != "")
-                    console.log(found)
-                    console.log(fullLine)
-                    console.log(subtitlePath)
                     if (found.length != 1) {
-                        console.log(found[0][0])
                         if (found.length >= 2 && found[0][0].startsWith("Title card")) {
                             return found[0][0]
                         }
@@ -148,6 +163,13 @@ subFiles.filter(subtitlePath => {
                 })
 
             episodeTitle = titles.shift()
+            console.log(titles)
+            // If there are 2 titles in a Fishman Island episode, take the first title
+            if (subtitlePath.includes("Fishman Island") && titles.length == 1) {
+                console.log("Remove from titles!")
+                titles.shift();
+            }
+
             for (let extraTitle of titles) {
                 if (episodeTitle != extraTitle) {
                     // [One Pace][527-528] Impel Down 02
