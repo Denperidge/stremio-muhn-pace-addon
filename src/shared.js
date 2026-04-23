@@ -13,7 +13,7 @@ export const RELEVANT_ARCS = [
     "Amazon Lily",  // 5, 21
     "Impel Down",  // 6, 22
     "Marineford",  // 7, 23
-    "Post War",  // 8, 24 | Muhn pace: Post Marineford | One Pace: Post War new/Post-war old
+    "Post War",  // 8, 24 | Muhn pace: Post Marineford, sometimes post war? | One Pace: Post War new/Post-war old
     RELEVANT_ARC_DO_NOT_DETECT + "Return to sabaody",  // 9, 25 Return to sabaody, fully on one pace. Don't detect, but add for season index
     "Fishman Island",  // 10, 26
     "Punk Hazard",  // 11, 27
@@ -24,8 +24,8 @@ export const RELEVANT_ARCS = [
     "Wano"  // 16, 32
 ]
 
-export function createId(seasonIndex, episode){
-    return `${ID}:${seasonIndex}:${episode.padStart(2, "0")}`;
+export function createId(seasonIndex, episode, seperator=":"){
+    return `${ID}${seperator}${seasonIndex}${seperator}${episode.padStart(2, "0")}`;
 }
 
 //let spawn;
