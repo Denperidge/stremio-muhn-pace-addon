@@ -1,3 +1,5 @@
+const { globSync, writeFileSync } = require("fs");
+
 const LINKS = require("./links.json");
 const CACHE_DIR = "data/cache/"
 
@@ -53,11 +55,8 @@ console.log("Step 1: Run this script in the Firefox console on https://pixeldrai
 console.log("Step 2: move the contents into stremio-muhn-pace-data/" + CACHE_DIR)
 console.log("Step 3: re-run this script!")
 
-const { globSync } = require("fs");
-
-const files = globSync(`${CACHE_DIR}/*.jpeg`);
-let seasonIndex = 1;
-if (files.length > 0) {
+const cachedThumbnails = globSync(`${CACHE_DIR}/*.jpeg`);
+if (cachedThumbnails.length > 0) {
     const {renameSync, rename, existsSync} = require("fs");
     const {copyFile} = require("fs/promises");
     const {RELEVANT_ARCS, REGEX_FILENAME, RELEVANT_ARC_DO_NOT_DETECT, createId} = require("../src/shared.js");
@@ -88,7 +87,18 @@ if (files.length > 0) {
         }
         for (const thumbnail of arcThumbnails) {
             const { episode } = thumbnail.match(REGEX_FILENAME).groups;
-            copyFile(thumbnail, `images/thumbnails/${createId(i, episode)}.jpeg`)
+            copyFile(thumbnail, `images/thumbnails/${createId(i + 1, episode)}.jpeg`);
         }
     }
 }
+
+// Prepare an object easily usable by server.js
+const thumbnails = globSync("images/thumbnails/*.jpeg");
+const json = {};
+for (const thumbnail of thumbnails) {
+    let id = thumbnail.replace(".jpeg", "");
+    id = id.substring(id.lastIndexOf("/") + 1)
+    json[id] = thumbnail
+}
+
+writeFileSync("data/thumbnails.json", JSON.stringify(json), { encoding: "utf-8" });
