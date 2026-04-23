@@ -28,7 +28,8 @@ export function createId(seasonIndex, episode){
     return `${ID}:${seasonIndex}:${episode.padStart(2, "0")}`;
 }
 
-let spawn;
+//let spawn;
+import {spawn} from "child_process"
 export async function runShell(command, args={}) {
     // Conditionally load spawn
     if (spawn == undefined) { spawn = ((await import("child_process")).spawn) }
@@ -36,7 +37,6 @@ export async function runShell(command, args={}) {
     return new Promise((resolve, reject) => {
         // Thanks to https://stackoverflow.com/a/32872753
         const instance = spawn(command, Object.assign({shell: true}, args))
-            .on("error", err => {throw err})
             .on("close", (code, signal) => {
                 resolve()
             })
@@ -44,5 +44,9 @@ export async function runShell(command, args={}) {
         instance.stdout.on("data", msg => {
             console.log(msg)
         })
+        instance.stderr.setEncoding("utf-8");
+        instance.stderr.on("data", msg => {
+            console.error(msg)
+        });
     })
 }

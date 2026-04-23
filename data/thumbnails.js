@@ -1,7 +1,7 @@
 import { stat } from "fs/promises";
 import { runShell, RELEVANT_ARCS } from "../src/shared.js";
 
-const THUMBNAIL_CACHE = "data/cache/thumbnails"
+const CACHE_THUMBNAILS = "data/cache/thumbnails"
 const LINKS = [
     "https://pixeldrain.com/api/list/6VyLVkB2/zip",
     "https://pixeldrain.com/api/list/jVhFqouN/zip",
@@ -19,10 +19,27 @@ const LINKS = [
     "https://pixeldrain.com/api/list/QZw3Ejpy/zip",
 ];
 
+for (const relevantArc of RELEVANT_ARCS) {
+    const arcDirectory = `${CACHE_THUMBNAILS}/${relevantArc}`;
+    // If arc isnt cached
+    if (!(await stat(arcDirectory)).isDirectory()) {
+        // Check for the zip file 
+        const arcZip = arcDirectory + ".zip";
+        if (!(await stat(arcZip)).isFile()) {
+            console.log("DOWNLOADING ZIP: " + relevantArc)
+
+        } else {
+            console.log("EXISTS: " + relevantArc)
+        }
+    }
+}
+
+/*
 for (let i=0; i < LINKS.length; i++) {
     const link = LINKS[i];
-    await runShell(`curl -o ${} "${link}"`, {cwd: });
+    await runShell(`curl "${link}" -o "${RELEVANT_ARCS[i]}.zip"`, {cwd: CACHE_THUMBNAILS});
 }
+    */
 
 // Thanks to https://shotstack.io/learn/use-ffmpeg-to-trim-video/ & https://superuser.com/a/484860
 //ffmpeg -i episode.mp4  -an -ss 00:03:00 -t 00:00:00.040 '%01d.png'
