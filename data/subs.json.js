@@ -175,8 +175,8 @@ subFiles.filter(subtitlePath => {
             throw new Error("Duplicate episode title adding from " + id)
         }
         outMeta[id] = {
-            title: episodeTitle
-        }
+            title: episodeTitle.replace(/\\N/g, " ")
+        };
     }
 
     if (!Object.keys(outSubs).includes(id)) {
