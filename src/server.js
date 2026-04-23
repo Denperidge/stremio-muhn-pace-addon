@@ -5,6 +5,7 @@ const { REGEX_FILENAME, ID, createId, RELEVANT_ARCS, RELEVANT_ARC_DO_NOT_DETECT 
 
 const SUBS = require("../data/subs.json");
 const META = require("../data/meta.json");
+const THUMBNAILS = require("../data/thumbnails.json");
 
 /* ----- CONSTANTS ----- */
 const IMAGE_BASE_URL = "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/";
@@ -45,13 +46,22 @@ function loadMuhnPaceData() {
         const id = createId(seasonIndex, episode)
         const title = (seasonIndex == 14 && parseInt(episode) >= 46) ? `Wano ${episode}`: META[id].title;
 
-        META_VIDEOS.push({
+        const metaVideo = {
             id: id,
             title: title,
             released: "2010-12-06T05:00:00.000Z",
             season: seasonIndex,
             episode: parseInt(episode),
-        });
+        };
+
+        if (Object.keys(THUMBNAILS).includes(id)) {
+            Object.assign(metaVideo, {
+                thumbnail: IMAGE_BASE_URL + THUMBNAILS[id].replace("images/", "")
+            })
+            console.log(metaVideo)
+        }
+        
+        META_VIDEOS.push(metaVideo);
         STREAMS[id] = { streams: [{
             name: "Pixeldrain",
             title: title,
