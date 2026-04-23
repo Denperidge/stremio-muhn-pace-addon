@@ -121,7 +121,8 @@ const builder = new addonBuilder({
 builder.defineCatalogHandler(args => {
     if (args.type == "series" && args.id == ID) {
         return Promise.resolve({ metas: CATALOGS});
-    }    
+    }
+    return Promise.resolve([]);
 });
 
 builder.defineMetaHandler(args => {
