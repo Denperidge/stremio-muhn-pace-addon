@@ -2,10 +2,12 @@ const {addonBuilder, serveHTTP} = require("stremio-addon-sdk");
 const { env } = require("process");
 const { REGEX_FILENAME, ID, createId, RELEVANT_ARCS, RELEVANT_ARC_DO_NOT_DETECT } = require("./shared")
 
+const IMAGE_BASE_URL = "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/";
+
 const DESCRIPTION = "Supplement the existing One Pace addons with the Muhn Pace fan project!";
-const LOGO = "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/logo.png";
-const POSTER = "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg";
-const BACKGROUND = "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/background.jpg";
+const LOGO = IMAGE_BASE_URL + "logo.png";
+const POSTER = IMAGE_BASE_URL + "poster.jpg";
+const BACKGROUND = IMAGE_BASE_URL + "background.jpg";
 
 const LINKS = require("../data/links.json");
 const SUBS = require("../data/subs.json");

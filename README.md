@@ -38,7 +38,8 @@ pnpm data
 This project exists thanks to 3 great projects!
 - The One Pace project, [specifically their subtitle repository](https://github.com/one-pace/one-pace-public-subtitles/tree/main#can-i-use-your-work-for-my-own-project). The licensing [is non-standard, but allows usage if credited](https://github.com/one-pace/one-pace-public-subtitles/tree/main#can-i-use-your-work-for-my-own-project)
 - The [Muhn Pace project itself](https://steamcommunity.com/sharedfiles/filedetails/?id=3685024934)
-- [fedew04's OnePaceStremio project](https://github.com/fedew04/OnePaceStremio/tree/main), which this project is built to supplement! Their code is licensed under the MIT License.
+- [fedew04's OnePaceStremio project](https://github.com/fedew04/OnePaceStremio/), which this project is built to supplement! Their code is licensed under the MIT License.
+- The contributors to TMDB which uploaded format-appropiate One Piece images! See [images/README.md](images/README.md)
 
 ## License
 All code in this repository (with the exception of [the generated files](#data-directory), which uses data from the external repos listed under [Notice](#notice)) is released into the public domain using the Unlicense. Otherwise Luffy would kill me for this.
