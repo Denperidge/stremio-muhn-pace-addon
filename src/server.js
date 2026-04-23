@@ -2,6 +2,10 @@ const {addonBuilder, serveHTTP} = require("stremio-addon-sdk");
 const { env } = require("process");
 const { REGEX_FILENAME, ID, createId, RELEVANT_ARCS, RELEVANT_ARC_DO_NOT_DETECT } = require("./shared")
 
+const DESCRIPTION = "Supplement the existing One Pace addons with the Muhn Pace fan project!";
+const LOGO = "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/logo.png";
+const POSTER = "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg";
+const BACKGROUND = "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/background.jpg";
 
 const LINKS = require("../data/links.json");
 const SUBS = require("../data/subs.json");
@@ -30,7 +34,7 @@ for (const goTo of GO_TO_ONEPACE) {
             title: title,
             released: "2010-12-06T05:00:00.000Z",
             season: seasonIndex,
-            episode: i,
+            episode: i
         });
         STREAMS[muhnpaceId] = { streams: [{
             name: "fedew04 One Pace Addon",
@@ -78,9 +82,11 @@ for (const link of LINKS) {
 
 const builder = new addonBuilder({
     id: ID,
-    description: "supplement the existing One Pace addons with the Muhn Pace fan project!",
+    description: DESCRIPTION,
     version: "0.0.1",
     name: "Muhn Pace",
+    logo: LOGO,
+    background: BACKGROUND,
     catalogs: [{
         type: "series",
         id: ID,
@@ -105,9 +111,9 @@ builder.defineCatalogHandler(args => {
             id: ID,
             type: "series",
             name: "muhn pace",
-            logo: "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/logo.png",
-            poster: "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg",
-            background: "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/background.jpg"
+            logo: LOGO,
+            poster: POSTER,
+            background: BACKGROUND
         }]});
     }    
 });
@@ -120,7 +126,11 @@ builder.defineMetaHandler(args => {
             id: ID,
             type: "series",
             name: "Muhn Pace",
-            videos: META_VIDEOS
+            description: DESCRIPTION,
+            videos: META_VIDEOS,
+            logo: LOGO,
+            poster: POSTER,
+            background: BACKGROUND
         }})
     }
     return Promise.resolve({})
