@@ -5,9 +5,9 @@
   "main": "src/server.js",
   "scripts": {
     "start": "pnpm node src/server.js",
-    "data": "pnpm data:subs",
+    "data": "pnpm data:subs && pnpm data:thumbnails",
     "data:subs": "pnpm node data/subs.json.js",
-    "data:thumbnails": "pnpm node data/thumbnails.js.js"
+    "data:thumbnails": "pnpm node data/thumbnails.json.js"
   },
   "keywords": [],
   "author": "Denperidge",
