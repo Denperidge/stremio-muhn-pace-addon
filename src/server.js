@@ -13,9 +13,17 @@ const DESCRIPTION = "Supplement the existing One Pace addons with the Muhn Pace 
 const LOGO = IMAGE_BASE_URL + "logo.png";
 const POSTER = IMAGE_BASE_URL + "poster.jpg";
 const BACKGROUND = IMAGE_BASE_URL + "background.jpg";
+const CATALOGS = [{
+    type: "series",
+    name: "Muhn Pace",
+    id: ID,
+    idPrefixes: [ ID ],
+    logo: LOGO,
+    poster: POSTER,
+    background: BACKGROUND
+}];
 
-
-/* ----- STARTUP DATA LOADING ----- */
+/* ----- STARTUP DATA FUNCTIONS & VARS ----- */
 const META_VIDEOS = [];
 const STREAMS = {};
 
@@ -99,12 +107,7 @@ const builder = new addonBuilder({
     name: "Muhn Pace",
     logo: LOGO,
     background: BACKGROUND,
-    catalogs: [{
-        type: "series",
-        id: ID,
-        name: "Muhn Pace",
-        idPrefixes: [ ID ]
-    }],
+    catalogs: CATALOGS,
     resources: ["catalog", "stream", "meta", "subtitles"],
     types: ["series"],
     extra: [
@@ -117,14 +120,7 @@ const builder = new addonBuilder({
 
 builder.defineCatalogHandler(args => {
     if (args.type == "series" && args.id == ID) {
-        return Promise.resolve({ metas: [{
-            id: ID,
-            type: "series",
-            name: "muhn pace",
-            logo: LOGO,
-            poster: POSTER,
-            background: BACKGROUND
-        }]});
+        return Promise.resolve({ metas: CATALOGS});
     }    
 });
 
