@@ -7,7 +7,7 @@
     "start": "pnpm node src/server.js",
     "data": "pnpm data:subs",
     "data:subs": "pnpm node data/subs.json.js",
-    "data:thumbnails": "pnpm node data/thumbnails.js"
+    "data:thumbnails": "pnpm node data/thumbnails.js.js"
   },
   "keywords": [],
   "author": "Denperidge",
