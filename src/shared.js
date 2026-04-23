@@ -24,7 +24,25 @@ export const RELEVANT_ARCS = [
     "Wano"  // 16, 32
 ]
 
-
 export function createId(seasonIndex, episode){
     return `${ID}:${seasonIndex}:${episode.padStart(2, "0")}`;
+}
+
+let spawn;
+export async function runShell(command, args={}) {
+    // Conditionally load spawn
+    if (spawn == undefined) { spawn = ((await import("child_process")).spawn) }
+    console.log("Running " + command)
+    return new Promise((resolve, reject) => {
+        // Thanks to https://stackoverflow.com/a/32872753
+        const instance = spawn(command, Object.assign({shell: true}, args))
+            .on("error", err => {throw err})
+            .on("close", (code, signal) => {
+                resolve()
+            })
+        instance.stdout.setEncoding("utf-8")
+        instance.stdout.on("data", msg => {
+            console.log(msg)
+        })
+    })
 }
