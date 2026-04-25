@@ -19,6 +19,16 @@ pnpm data
 # & data/subs.json
 ```
 
+### Deploy to beamup
+Notes:
+- Add your public SSH key as an [authentication key on GitHub](https://github.com/settings/keys)
+```sh
+# In case you changed your SSH keys, run the following
+pnpm beamup config
+
+git push beamup main
+```
+
 ## Explanation
 ### Compatibility
 - It works fully as intended on Android TV & Android

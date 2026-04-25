@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "start": "pnpm node src/server.js",
     "data": "pnpm data:subs && pnpm data:thumbnails",
