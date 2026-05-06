@@ -10,7 +10,7 @@ const THUMBNAILS = require("../data/thumbnails.json");
 /* ----- CONSTANTS ----- */
 const IMAGE_BASE_URL = "https://raw.githubusercontent.com/Denperidge/stremio-muhn-pace-addon/main/images/";
 
-const DESCRIPTION = "Supplement the existing One Pace addons with the Muhn Pace fan project!";
+const DESCRIPTION = "One Pace is a fan project that recuts the One Piece anime in an endeavor to bring it more in line with the pacing of the original manga by Eiichiro Oda. Muhn Pace is a fan project that recuts the English dub episodes that the One Pace fan project hasn't yet caught up on. This is a stremio addon to watch the Muhn Pace fan project that redirects to the One Pace stremio addon for the episodes the fan project One Pace has already done. Keep up, chucklenuts";
 const LOGO = IMAGE_BASE_URL + "logo.png";
 const POSTER = IMAGE_BASE_URL + "poster.jpg";
 const BACKGROUND = IMAGE_BASE_URL + "background.jpg";
